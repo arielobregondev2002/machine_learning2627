@@ -8,6 +8,7 @@ db = pd.DataFrame({
 
 x = db['x']
 y = db['y']
+
 learn_rate = 0.1
 def main():
 	print(db)
@@ -18,14 +19,14 @@ def gradients():
 	mw= float(input("m: "))
 	bw = float(input("b: "))
 	
-	for iteration in range(1000):
+	for iteration in range(5):
 		yw_list = []
 		for data in db['x']:
 			yw = mw*data + bw
 			yw_list.append(yw)
 		yw_set = np.array(yw_list)
-		b_grad = (-2/db['y'].count()) * sum(y - yw_set)
-		m_grad =  (-2/db['y'].count()) * sum(x*(y - yw_set))
+		b_grad = (2/db['y'].count()) * sum(yw_set - y)
+		m_grad =  (2/db['y'].count()) * sum(x*(yw_set - y))
 		print("b gradient:", b_grad)
 		print("m gradient:", m_grad)
 		new_m, new_b = new_parameters(mw, bw,m_grad, b_grad)
